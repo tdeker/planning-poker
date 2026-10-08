@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { supabaseConfigured } from "@/lib/supabase";
 
 export default function Home() {
   const [room, setRoom] = useState("");
@@ -22,6 +23,16 @@ export default function Home() {
       <p style={{ color: "#8b90a0", fontSize: 14, marginTop: 6, marginBottom: 28 }}>
         Crée une salle d'estimation et partage son lien avec ton équipe. Les votes se synchronisent en temps réel.
       </p>
+
+      {!supabaseConfigured && (
+        <div style={{ background: "#3a2416", border: "1px solid #ef9f27", color: "#ffcf87", padding: "12px 14px", borderRadius: 10, fontSize: 13, marginBottom: 24, lineHeight: 1.5 }}>
+          ⚠️ Configuration Supabase manquante. Définis les variables
+          <code style={{ background: "#00000033", padding: "1px 5px", borderRadius: 4, margin: "0 3px" }}>NEXT_PUBLIC_SUPABASE_URL</code>
+          et
+          <code style={{ background: "#00000033", padding: "1px 5px", borderRadius: 4, margin: "0 3px" }}>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
+          dans les variables de ton service Railway, puis redéploie.
+        </div>
+      )}
 
       <label style={{ display: "block", fontSize: 13, color: "#8b90a0", marginBottom: 6 }}>Nom de la salle</label>
       <input
